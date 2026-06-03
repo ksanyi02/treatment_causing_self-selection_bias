@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Claim | Fictional Insurance Company</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --primary-hover: #004085;
+            --background: #f4f7f6;
+            --text: #333;
+            --white: #ffffff;
+            --border: #cccccc;
+            --success: #28a745;
+            --warning-bg: #fff3cd;
+            --warning-border: #ffc107;
+            --danger-bg: #f8d7da;
+            --danger-border: #f5c6cb;
+            --danger-text: #721c24;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .widget {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        /* Form Step Dynamic Styling */
+        .form-step {
+            display: none; 
+            margin-bottom: 35px;
+            padding: 20px;
+            border-radius: 6px;
+            background-color: #ffffff;
+            border: 1px solid #eee;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        /* Step 1 visible immediately */
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .legal-notice-box {
+            background-color: var(--danger-bg);
+            border-left: 5px solid var(--danger-border);
+            color: var(--danger-text);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .checkbox-container input {
+            margin-top: 4px;
+            transform: scale(1.2);
+        }
+
+        input[type="text"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .file-drop {
+            border: 2px dashed var(--primary);
+            padding: 30px;
+            text-align: center;
+            background: #f0f7ff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .emergency-box {
+            background-color: var(--warning-bg);
+            border-left: 5px solid var(--warning-border);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            color: var(--success);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"> ❤️ Fictional Insurance Company</div>
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">My Policies</a>
+            <a href="#">Log Out</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <div id="formHeader">
+                <h1>Submit a New Claim</h1>
+                <p>Please complete the steps below to file your digital claim report.</p>
+                <hr style="border: 0; height: 1px; background: #eee; margin-bottom: 25px;">
+            </div>
+
+            <form id="claimForm" action="#" method="POST">
+                
+                <div id="step-1" class="form-step active">
+                    <h2>1. Policy & Claim Type</h2>
+                    <div class="form-group">
+                        <label for="policy-number">Select Policy *</label>
+                        <select id="policy-number" required>
+                            <option value="">-- Select Active Policy --</option>
+                            <option value="auto-123">Auto Insurance - MTPL</option>
+                            <option value="auto-casco">Auto Insurance - CASCO</option>
+                            <option value="home-456">Home Insurance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="step-2" class="form-step">
+                    <h2>2. Incident Details</h2>
+                    <div class="form-group">
+                        <label for="incident-date">Date & Time of Incident *</label>
+                        <input type="datetime-local" id="incident-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location of Incident *</label>
+                        <input type="text" id="location" placeholder="e.g., 25. Budapester Straße, Berlin, Germany" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">What Happened? *</label>
+                        <textarea id="description" placeholder="Please describe the incident in detail..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cost">Estimated costs *</label>
+                        <input type="text" id="cost" placeholder="e.g., 12000 €" required>
+                    </div>
+
+
+                </div>
+
+                <div id="step-3" class="form-step">
+                    <h2>3. Supporting Documentation & Submit</h2>
+                    <div class="form-group">
+                        <label>Upload Photos, Receipts, or Police Reports (Optional)</label>
+                        <div class="file-drop">
+                            <p><strong>Drag and drop files here</strong></p>
+                            <p style="font-size: 14px; color: #666;">or click to browse from your device</p>
+                            <input type="file" id="file-upload" multiple style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="legal-notice-box">
+                        <strong>Important Warning:</strong> Providing false, incomplete, or inaccurate information when reporting an insurance claim constitutes fraud. Submitting an intentionally misleading claim can result in the immediate cancellation of coverage, denial of the claim, and severe <strong>legal consequences</strong>, including criminal prosecution and civil penalties.
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="legal-confirm" required>
+                            <span>I explicitly understand and acknowledge that reporting a false or inaccurate claim carries legal consequences. *</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="btn-submit">Submit Claim Application</button>
+                </div>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✓</div>
+                <h2>Thank You for Reaching Out!</h2>
+                <p>Your digital claim report has been successfully submitted to our Fictional Insurance Company.</p>
+                <p>We appreciate you using our automated service. A confirmation email with your reference number has been sent, and a claims adjuster will review your details within 24 hours.</p>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="widget emergency-box">
+                <h3>🚨 Need Immediate Help?</h3>
+                <p>If you are facing an active emergency, call our 24/7 urgent hotline:</p>
+                <p><strong>1-22-333-4444</strong></p>
+            </div>
+
+            <div class="widget">
+                <h3>What Happens Next?</h3>
+                <ol style="padding-left: 20px; line-height: 1.6;">
+                    <li><strong>After submission:</strong> Receive an instant confirmation email.</li>
+                    <li><strong>Review:</strong> An adjuster gets assigned within 24 hours.</li>
+                </ol>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const claimForm = document.getElementById('claimForm');
+            const formHeader = document.getElementById('formHeader');
+            const successMessage = document.getElementById('successMessage');
+
+            const policySelect = document.getElementById('policy-number');
+            const costTextarea = document.getElementById('cost');
+            
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+
+            // 1. Reveal Step 2 when Policy selection changes to a valid value
+            policySelect.addEventListener('change', function() {
+                if (policySelect.value !== "") {
+                    step2.classList.add('active');
+                }
+            });
+
+            // 2. Reveal Step 3 (warning block included) when user types a cost
+            costTextarea.addEventListener('input', function() {
+                if (costTextarea.value.trim().length > 0) { 
+                    step3.classList.add('active');
+                }
+            });
+
+            // 3. Handle Submit Button Action
+            claimForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+
+                claimForm.style.display = 'none';
+                formHeader.style.display = 'none';
+                successMessage.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
