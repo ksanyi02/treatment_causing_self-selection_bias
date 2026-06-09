@@ -99,11 +99,12 @@
             animation: fadeIn 0.4s ease-in-out forwards;
         }
 
-        /* Step 1 visible immediately */
+        /* Initial state active class */
         .form-step.active {
             display: block;
         }
 
+        /* Smooth fade-in animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -119,6 +120,7 @@
             font-weight: 600;
         }
 
+        /* Legal Notice styling for Step 0 */
         .legal-notice-box {
             background-color: var(--danger-bg);
             border-left: 5px solid var(--danger-border);
@@ -190,6 +192,7 @@
             border-radius: 4px;
         }
 
+        /* Success Message Styling */
         .success-message {
             display: none;
             text-align: center;
@@ -225,7 +228,20 @@
 
             <form id="claimForm" action="#" method="POST">
                 
-                <div id="step-1" class="form-step active">
+                <div id="step-0" class="form-step active">
+                    <h2>Legal Notice & Acknowledgement</h2>
+                    <div class="legal-notice-box">
+                        <strong>Important Warning:</strong> Providing false, incomplete, or inaccurate information when reporting an insurance claim constitutes fraud. Submitting an intentionally misleading claim can result in the immediate cancellation of coverage, denial of the claim, and severe <strong>legal consequences</strong>, including criminal prosecution and civil penalties.
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="legal-confirm" required>
+                            <span>I explicitly understand and acknowledge that reporting a false or inaccurate claim carries legal consequences. *</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="step-1" class="form-step">
                     <h2>1. Policy & Claim Type</h2>
                     <div class="form-group">
                         <label for="policy-number">Select Policy *</label>
@@ -260,7 +276,6 @@
                         <input type="text" id="cost" placeholder="e.g., 12000 €" required>
                     </div>
 
-
                 </div>
 
                 <div id="step-3" class="form-step">
@@ -272,17 +287,6 @@
                             <p style="font-size: 14px; color: #666;">or click to browse from your device</p>
                             <input type="file" id="file-upload" multiple style="display: none;">
                         </div>
-                    </div>
-
-                    <div class="legal-notice-box">
-                        <strong>Important Warning:</strong> Providing false, incomplete, or inaccurate information when reporting an insurance claim constitutes fraud. Submitting an intentionally misleading claim can result in the immediate cancellation of coverage, denial of the claim, and severe <strong>legal consequences</strong>, including criminal prosecution and civil penalties.
-                    </div>
-                    
-                    <div class="form-group" style="margin-bottom: 25px;">
-                        <label class="checkbox-container">
-                            <input type="checkbox" id="legal-confirm" required>
-                            <span>I explicitly understand and acknowledge that reporting a false or inaccurate claim carries legal consequences. *</span>
-                        </label>
                     </div>
                     
                     <button type="submit" id="submitBtn" class="btn-submit">Submit Claim Application</button>
@@ -321,34 +325,70 @@
             const formHeader = document.getElementById('formHeader');
             const successMessage = document.getElementById('successMessage');
 
+            const legalCheckbox = document.getElementById('legal-confirm');
             const policySelect = document.getElementById('policy-number');
             const costTextarea = document.getElementById('cost');
             
+            const step0 = document.getElementById('step-0');
+            const step1 = document.getElementById('step-1');
             const step2 = document.getElementById('step-2');
             const step3 = document.getElementById('step-3');
 
-            // 1. Reveal Step 2 when Policy selection changes to a valid value
+            // 0. Handle Acknowledgement & Reveal Step 1
+            legalCheckbox.addEventListener('change', function() {
+                if (legalCheckbox.checked) {
+                    step0.classList.remove('active'); // Hide disclaimer
+                    step1.classList.add('active');    // Show step 1
+                    legalCheckbox.removeAttribute('required'); // Prevent hidden validation crash
+                } else {
+                    step0.classList.add('active');
+                    step1.classList.remove('active');
+                    step2.classList.remove('active');
+                    step3.classList.remove('active');
+                    legalCheckbox.setAttribute('required', 'required');
+                    policySelect.value = "";
+                    clearInputs(step2);
+                }
+            });
+
+            // 1. Reveal Step 2 when Policy is selected
             policySelect.addEventListener('change', function() {
                 if (policySelect.value !== "") {
                     step2.classList.add('active');
+                } else {
+                    step2.classList.remove('active');
+                    step3.classList.remove('active');
+                    clearInputs(step2);
                 }
             });
 
-            // 2. Reveal Step 3 (warning block included) when user types a cost
+            // 2. Reveal Step 3 when user starts writing a cost
             costTextarea.addEventListener('input', function() {
                 if (costTextarea.value.trim().length > 0) { 
                     step3.classList.add('active');
+                } else {
+                    step3.classList.remove('active');
                 }
             });
 
-            // 3. Handle Submit Button Action
+            // 3. Handle Form Submission & Display Thank You Message
             claimForm.addEventListener('submit', function(event) {
-                event.preventDefault(); 
+                event.preventDefault(); // Stop the page from reloading/refreshing
 
+                // Hide the form layouts
                 claimForm.style.display = 'none';
                 formHeader.style.display = 'none';
+
+                // Display the thank you block
                 successMessage.style.display = 'block';
             });
+
+            // Helper function to clear inputs if a user backtracks
+            function clearInputs(section) {
+                const inputs = section.querySelectorAll('input, textarea');
+                inputs.forEach(input => input.value = '');
+            }
+
         });
     </script>
 </body>
