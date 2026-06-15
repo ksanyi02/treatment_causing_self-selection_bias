@@ -1,4 +1,6 @@
-# AB-test
+# Treatment causing self-selection bias
+
+\#selection-bias
 
 Comparing frequentist and bayesian A/B testing methods using an insurance claim form experiment as a practical case study. The project evaluates two front-end UX designs - one utilizing upfront honesty priming and the other a post-fill disclaimer - to observe how the timing of a legal notice impacts user compliance (fraud reduction).
 
