@@ -19,6 +19,6 @@ This fictional experiment serves as a concrete case study demonstrating why trad
 
 ## Inspiration
 
-The concept for this project is inspired by the following - retracted - [study](https://www.researchgate.net/publication/230748958_Signing_at_the_beginning_makes_ethics_salient_and_decreases_dishonest_self-reports_in_comparison_to_signing_at_the_end):
+The concept for this project is inspired by the following - retracted - study: 
 
-L.L. Shu, N. Mazar, F. Gino, D. Ariely, M.H. Bazerman. Signing at the beginning makes ethics salient and decreases dishonest self-reports in comparison to signing at the end. Proc. Natl. Acad. Sci. U.S.A. 109, 15197–15200 (2012). 
+L.L. Shu, N. Mazar, F. Gino, D. Ariely, M.H. Bazerman. Signing at the beginning makes ethics salient and decreases dishonest self-reports in comparison to signing at the end. Proc. Natl. Acad. Sci. U.S.A. 109, 15197–15200 (2012). [LINK](https://www.researchgate.net/publication/230748958_Signing_at_the_beginning_makes_ethics_salient_and_decreases_dishonest_self-reports_in_comparison_to_signing_at_the_end)
