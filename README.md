@@ -6,9 +6,9 @@
 
 This project evaluates a UX experiment on an insurance claim form designed to observe how the timing of a legal notice impacts user compliance and fraud reduction. The experiment compares two front-end designs:
 
-Version A: Post-fill disclaimer (signing at the end)
+**Version A:** Post-fill disclaimer (signing at the end)
 
-Version B: Upfront honesty priming (signing a disclosure first)
+**Version B:** Upfront honesty priming (signing a disclosure first)
 
 
 ## The Challenge: Endogenous Attrition
