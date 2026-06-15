@@ -1,10 +1,24 @@
-# Treatment causing self-selection bias
+# Treatment-Induced Self-Selection Bias
 
-\#selection-bias
+#selection-bias #attrition-bias #behavioral-deterrence #endogeneity
 
-Comparing frequentist and bayesian A/B testing methods using an insurance claim form experiment as a practical case study. The project evaluates two front-end UX designs - one utilizing upfront honesty priming and the other a post-fill disclaimer - to observe how the timing of a legal notice impacts user compliance (fraud reduction).
+## Overview
 
-The fictional experiment serves as a concrete example to demonstrate how frequentist and bayesian A/B testing paradigms interpret identical behavioral data, based on the idea of this article:
+This project evaluates a UX experiment on an insurance claim form designed to observe how the timing of a legal notice impacts user compliance and fraud reduction. The experiment compares two front-end designs:
 
-L.L.Shu, N.Mazar, F.Gino, D.Ariely, M.H.Bazerman, Signing at the beginning makes ethics salient and decreases dishonest self-reports in comparison to signing at the end. Proc. Natl. Acad. Sci. U.S.A. 109, 15197–15200 (2012).
-https://www.researchgate.net/publication/230748958_Signing_at_the_beginning_makes_ethics_salient_and_decreases_dishonest_self-reports_in_comparison_to_signing_at_the_end
+Version A: Post-fill disclaimer (signing at the end)
+
+Version B: Upfront honesty priming (signing a disclosure first)
+
+
+## The Challenge: Endogenous Attrition
+
+Because the treatment emphasizes the legal consequences of fraudulent activity, the upfront priming variant is expected to cause a high drop-out (attrition) rate. This introduces endogenous self-selection bias, as the users who abandon the form differ systematically from those who complete it. Under these circumstances, standard evaluation metrics yield biased estimates of the true treatment effect.
+
+This fictional experiment serves as a concrete case study demonstrating why traditional frequentist and Bayesian A/B testing paradigms fail in the presence of systemic attrition, and offers alternative statistical methods to recover unbiased causal effects.
+
+## Inspiration
+
+The concept for this project is inspired by the following - retracted - study:
+
+L.L. Shu, N. Mazar, F. Gino, D. Ariely, M.H. Bazerman. Signing at the beginning makes ethics salient and decreases dishonest self-reports in comparison to signing at the end. Proc. Natl. Acad. Sci. U.S.A. 109, 15197–15200 (2012). ResearchGate Link
